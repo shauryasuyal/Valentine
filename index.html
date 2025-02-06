@@ -164,8 +164,9 @@
       imageX.classList.remove("hidden");
     });
 
-    // Add the click event listener for imageX to show the love note
+    // Add the click event listener for imageX to replace it with the love note
     imageX.addEventListener('click', () => {
+      imageX.classList.add("hidden"); // Hide imageX
       loveNote.classList.add("visible"); // Show the love note when imageX is clicked
     });
 
@@ -173,4 +174,3 @@
 
 </body>
 </html>
-

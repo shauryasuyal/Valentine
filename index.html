@@ -15,15 +15,21 @@
     }
 
     @keyframes bounce2 {
-      0%, 20%, 50%, 80%, 100% {
-        transform: translateY(0);
-      }
-      40% {
-        transform: translateY(-20px);
-      }
-      60% {
-        transform: translateY(-10px);
-      }
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-20px); }
+      60% { transform: translateY(-10px); }
+    }
+
+    /* Love Note Fade-In */
+    .hidden {
+      display: none;
+      opacity: 0;
+      transition: opacity 1.5s ease-in-out;
+    }
+
+    .visible {
+      display: block;
+      opacity: 1;
     }
   </style>
 </head>
@@ -48,12 +54,22 @@
           No
         </button>
       </div>
+
+      <!-- Love Note Image (Hidden Initially) -->
+      <img id="loveNote" src="./images/love-note.png" class="hidden mt-6 w-[300px]" alt="Love Note">
+
     </div>
   </div>
 
   <!-- Background Music -->
   <audio id="backgroundMusic" autoplay loop>
     <source src="./music/valentine.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- Cute Voice Message -->
+  <audio id="yesVoice">
+    <source src="./music/cute-voice.mp3" type="audio/mp3">
     Your browser does not support the audio element.
   </audio>
 
@@ -67,6 +83,8 @@
     const responseButtons = document.getElementById('responseButtons');
     const music = document.getElementById("backgroundMusic");
     const musicToggle = document.getElementById("musicToggle");
+    const yesVoice = document.getElementById("yesVoice");
+    const loveNote = document.getElementById("loveNote");
 
     music.volume = 0.5; // Set initial volume
 
@@ -84,40 +102,24 @@
     let buttonHeight = 48;
     let buttonWidth = 80;
     let fontSize = 20;
-  
+
     const imagePaths = [
-      "./images/image1.gif",
-      "./images/image2.gif",
-      "./images/image3.gif",
-      "./images/image4.gif",
-      "./images/image5.gif",
-      "./images/image6.gif",
-      "./images/image8.gif",
-      "./images/image9.gif",
-      "./images/image10.gif",
-      "./images/image11.gif",
-      "./images/image12.gif",
-      "./images/image13.gif",
-      "./images/image14.gif",
-      "./images/image15.gif",
-      "./images/image16.gif",
-      "./images/image17.gif",
-      "./images/image18.gif",
-      "./images/image19.gif",
-      "./images/image20.gif",
-      "./images/image21.gif",
-      "./images/image22.gif",
-      "./images/image23.gif",
-      "./images/imageX.gif"
+      "./images/image1.gif", "./images/image2.gif", "./images/image3.gif", "./images/image4.gif",
+      "./images/image5.gif", "./images/image6.gif", "./images/image8.gif", "./images/image9.gif",
+      "./images/image10.gif", "./images/image11.gif", "./images/image12.gif", "./images/image13.gif",
+      "./images/image14.gif", "./images/image15.gif", "./images/image16.gif", "./images/image17.gif",
+      "./images/image18.gif", "./images/image19.gif", "./images/image20.gif", "./images/image21.gif",
+      "./images/image22.gif", "./images/image23.gif", "./images/imageX.gif"
     ];
-  
+
     const noResponses = [
       "No", "Are you sure?", "Pookie please", "Don't do this to me :(", "You're breaking my heart", 
       "I'm gonna cry...", "Nooo, not like this...", "Omg, this can’t be real...", "Pookie, please, don’t do this to me...",
-      "Are you really going to hurt me like this?", "Not today, I can’t handle this...", "Wait… why would you say that?", "You’ve got to be kidding me...", "I can’t believe this is happening...",
-      "Why would you do this to my fragile heart?", "Please don’t leave me hanging like this...",
-      "I'm literally heartbroken right now...", "Don’t say that, it’s too much...", "I wasn’t ready for this...",
-      "You’re breaking me, you know that?", "This is too much for me to take...", "Alr pookie i cant type anymore , just press on yes, okau ? mwah <3"
+      "Are you really going to hurt me like this?", "Not today, I can’t handle this...", "Wait… why would you say that?", 
+      "You’ve got to be kidding me...", "I can’t believe this is happening...", "Why would you do this to my fragile heart?",
+      "Please don’t leave me hanging like this...", "I'm literally heartbroken right now...", 
+      "Don’t say that, it’s too much...", "I wasn’t ready for this...", "You’re breaking me, you know that?", 
+      "This is too much for me to take...", "Alr pookie i cant type anymore , just press on yes, okau ? mwah <3"
     ];
 
     noButton.addEventListener('click', function() {
@@ -136,18 +138,34 @@
         }
       }
     });
-  
+
     yesButton.addEventListener('click', () => {
       imageDisplay.src = './images/imageX.gif';
       valentineQuestion.textContent = "Yayayayay !! <3 ";
       responseButtons.style.display = 'none';
+
+      yesVoice.play(); // Play Cute Voice
 
       confetti({
         particleCount: 500,
         spread: 75,
         origin: { y: 0.6 }
       });
+
+      setTimeout(() => {
+        loveNote.classList.add("visible"); // Show Love Note Image
+      }, 1500);
     });
+
+    // Mouse Chase Effect
+    //noButton.addEventListener("mouseover", function() {
+      //let x = Math.random() * (window.innerWidth - 200);
+      //let y = Math.random() * (window.innerHeight - 200);
+     // noButton.style.position = "absolute";
+     // noButton.style.left = `${x}px`;
+     // noButton.style.top = `${y}px`;
+    //});
+
   </script> 
 
 </body>

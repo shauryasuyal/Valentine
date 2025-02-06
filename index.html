@@ -144,7 +144,7 @@
     });
 
     yesButton.addEventListener('click', () => {
-      imageDisplay.src = './images/imageX.gif'; // Show imageX after 'Yes' is clicked
+      imageDisplay.src = './images/imageX.gif'; // Show imageX immediately
       valentineQuestion.textContent = "Yayayayay !! <3 ";
       responseButtons.style.display = 'none';
 
@@ -156,9 +156,7 @@
         origin: { y: 0.6 }
       });
 
-      setTimeout(() => {
-        imageX.classList.remove("hidden"); // Show imageX
-      }, 500); // Short delay to make sure imageX shows after confetti
+      imageX.classList.remove("hidden"); // Show imageX right after the "Yes" click
     });
 
     // Add the click event listener for imageX to replace it with the love note

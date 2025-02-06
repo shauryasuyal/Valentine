@@ -53,7 +53,7 @@
       </div>
 
       <!-- Love Note Image (Hidden Initially) -->
-      <img id="loveNote" src="./images/love-note.png" class="hidden mt-6 w-[300px]" alt="Love Note">
+      <img id="loveNote" src="./images/love-note.png" class="hidden mt-6 w-[400px]" alt="Love Note"> <!-- Increased width -->
 
     </div>
   </div>
@@ -137,6 +137,7 @@
     });
 
     yesButton.addEventListener('click', () => {
+      music.pause(); // Stop background music
       imageDisplay.src = './images/imageX.gif';
       valentineQuestion.textContent = "Yayayayay !! <3 ";
       responseButtons.style.display = 'none';

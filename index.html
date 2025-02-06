@@ -94,20 +94,11 @@
       "You’re breaking me, you know that?", "This is too much for me to take...", "Alr pookie i cant type anymore , just press on yes, okau ? mwah <3"
     ];
 
-const music = document.getElementById("backgroundMusic");
-const musicToggle = document.getElementById("musicToggle");
+<audio id="backgroundMusic" autoplay loop>
+  <source src="./music/valentine.mp3" type="audio/mp3">
+  Your browser does not support the audio element.
+</audio>
 
-music.volume = 0.5; // Set initial volume
-
-musicToggle.addEventListener("click", () => {
-  if (music.paused) {
-    music.play();
-    musicToggle.textContent = "Pause Music 🎶";
-  } else {
-    music.pause();
-    musicToggle.textContent = "Play Music ▶️";
-  }
-});
 
   
     noButton.addEventListener('click', function() {
@@ -138,6 +129,8 @@ musicToggle.addEventListener("click", () => {
         origin: { y: 0.6 }
       });
     });
-  </script>  
+  
+</script> 
+
 </body>
 </html>

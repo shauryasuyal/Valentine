@@ -130,6 +130,11 @@
     preloadImages(imagePaths); // Preload the images
 
     noButton.addEventListener('click', function() {
+      if (noClickCount === 0) {
+        music.play(); // Start background music on the first click
+        musicToggle.textContent = "Pause Music 🎶"; // Update button text
+      }
+
       if (noClickCount < 21) {
         noClickCount++;
         imageDisplay.src = imagePaths[noClickCount];

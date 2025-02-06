@@ -58,6 +58,9 @@
       <!-- Love Note Image (Hidden Initially) -->
       <img id="loveNote" src="./images/love-note.png" class="hidden mt-6 w-[300px]" alt="Love Note">
 
+      <!-- Special Image (imageX) -->
+      <img id="imageX" src="./images/imageX.gif" alt="Special Image" class="rounded-md h-[300px] object-cover mt-6" />
+
     </div>
   </div>
 
@@ -85,6 +88,7 @@
     const musicToggle = document.getElementById("musicToggle");
     const yesVoice = document.getElementById("yesVoice");
     const loveNote = document.getElementById("loveNote");
+    const imageX = document.getElementById('imageX'); // Targeting imageX
 
     music.volume = 0.5; // Set initial volume
 
@@ -143,10 +147,6 @@
       imageDisplay.src = './images/imageX.gif';
       valentineQuestion.textContent = "Yayayayay !! <3 ";
       responseButtons.style.display = 'none';
-setTimeout(function() {
-        image.style.display = 'none'; // Hide the image
-      }, 5000); // 5000ms = 5 seconds
-    
 
       yesVoice.play(); // Play Cute Voice
 
@@ -161,14 +161,10 @@ setTimeout(function() {
       }, 1500);
     });
 
-    // Mouse Chase Effect
-    //noButton.addEventListener("mouseover", function() {
-      //let x = Math.random() * (window.innerWidth - 200);
-      //let y = Math.random() * (window.innerHeight - 200);
-     // noButton.style.position = "absolute";
-     // noButton.style.left = `${x}px`;
-     // noButton.style.top = `${y}px`;
-    //});
+    // Add the click event listener for imageX to show the love note
+    imageX.addEventListener('click', () => {
+      loveNote.classList.add("visible"); // Show the love note when imageX is clicked
+    });
 
   </script> 
 

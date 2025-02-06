@@ -28,51 +28,71 @@
     .visible {
       display: block;
     }
+
+    /* Loader styles */
+    #loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(255, 255, 255, 0.8);
+      z-index: 9999;
+    }
   </style>
 </head>
 <body class="gradient-background">
-  <div class="flex items-center justify-center h-screen">
-    <div class="flex flex-col items-center p-4">
-      <img id="imageDisplay" src="./images/image1.gif" alt="Cute kitten with flowers" class="rounded-md h-[300px] object-cover" />
-      <h2 id="valentineQuestion" class="text-4xl font-bold italic text-[#ffffff] my-4">Pretty Please <3</h2>
-      
-      <!-- Music Toggle Button -->
-      <button id="musicToggle" class="mb-4 px-4 py-2 bg-pink-500 text-white rounded-md">
-        Play Music ▶️
-      </button>
-
-      <div class="flex gap-4 pt-[20px] items-center" id="responseButtons">
-        <button id="yesButton"
-          class="bounce2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-medium disabled:pointer-events-none disabled:opacity-50 hover:bg-green-400 min-h-12 min-w-[75px] px-4 py-2 bg-green-500 text-white transition">
-          Yes
-        </button>
-        <button id="noButton"
-          class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-medium transition disabled:pointer-events-none disabled:opacity-50 hover:bg-red-700 h-12 min-w-[75px] w-auto px-4 py-2 bg-red-500 text-white">
-          No
-        </button>
-      </div>
-
-      <!-- Love Note Image (Hidden Initially) -->
-      <img id="loveNote" src="./images/love-note.png" class="hidden mt-6 w-[400px]" alt="Love Note"> <!-- Increased width -->
-
-    </div>
+  <div id="loader">
+    <h1 class="text-2xl font-bold">Loading...</h1>
   </div>
 
-  <!-- Background Music -->
-  <audio id="backgroundMusic" loop>
-    <source src="./music/valentine.mp3" type="audio/mp3">
-    Your browser does not support the audio element.
-  </audio>
+  <div id="mainContent" class="hidden">
+    <div class="flex items-center justify-center h-screen">
+      <div class="flex flex-col items-center p-4">
+        <img id="imageDisplay" src="./images/image1.gif" alt="Cute kitten with flowers" class="rounded-md h-[300px] object-cover" />
+        <h2 id="valentineQuestion" class="text-4xl font-bold italic text-[#ffffff] my-4">Pretty Please <3</h2>
+        
+        <!-- Music Toggle Button -->
+        <button id="musicToggle" class="mb-4 px-4 py-2 bg-pink-500 text-white rounded-md">
+          Play Music ▶️
+        </button>
 
-  <!-- Cute Voice Message -->
-  <audio id="yesVoice">
-    <source src="./music/cute-voice.mp3" type="audio/mp3">
-    Your browser does not support the audio element.
-  </audio>
+        <div class="flex gap-4 pt-[20px] items-center" id="responseButtons">
+          <button id="yesButton"
+            class="bounce2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-medium disabled:pointer-events-none disabled:opacity-50 hover:bg-green-400 min-h-12 min-w-[75px] px-4 py-2 bg-green-500 text-white transition">
+            Yes
+          </button>
+          <button id="noButton"
+            class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-medium transition disabled:pointer-events-none disabled:opacity-50 hover:bg-red-700 h-12 min-w-[75px] w-auto px-4 py-2 bg-red-500 text-white">
+            No
+          </button>
+        </div>
+
+        <!-- Love Note Image (Hidden Initially) -->
+        <img id="loveNote" src="./images/love-note.png" class="hidden mt-6 w-[400px]" alt="Love Note"> <!-- Increased width -->
+
+      </div>
+    </div>
+
+    <!-- Background Music -->
+    <audio id="backgroundMusic" loop>
+      <source src="./music/valentine.mp3" type="audio/mp3">
+      Your browser does not support the audio element.
+    </audio>
+
+    <!-- Cute Voice Message -->
+    <audio id="yesVoice">
+      <source src="./music/cute-voice.mp3" type="audio/mp3">
+      Your browser does not support the audio element.
+    </audio>
+  </div>
 
   <script type="module">
     import confetti from 'https://cdn.skypack.dev/canvas-confetti';
-    
+
     const yesButton = document.getElementById('yesButton');
     const noButton = document.getElementById('noButton');
     const imageDisplay = document.getElementById('imageDisplay');
@@ -82,6 +102,8 @@
     const musicToggle = document.getElementById("musicToggle");
     const yesVoice = document.getElementById("yesVoice");
     const loveNote = document.getElementById("loveNote");
+    const loader = document.getElementById('loader');
+    const mainContent = document.getElementById('mainContent');
 
     music.volume = 0.5; // Set initial volume
 
@@ -119,15 +141,26 @@
       "This is too much for me to take...", "Alr pookie i cant type anymore , just press on yes, okau ? mwah <3"
     ];
 
-    // Preload images
+    // Preload images and return a promise
     const preloadImages = (imageArray) => {
-      imageArray.forEach(src => {
-        const img = new Image();
-        img.src = src;
+      const promises = imageArray.map(src => {
+        return new Promise((resolve) => {
+          const img = new Image();
+          img.src = src;
+          img.onload = resolve; // Resolve the promise when the image is loaded
+          img.onerror = resolve; // Resolve even if there's an error (to avoid hanging)
+        });
       });
+      return Promise.all(promises); // Wait for all promises to resolve
     };
 
-    preloadImages(imagePaths); // Preload the images
+    // Wait for DOM to be fully loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      preloadImages(imagePaths).then(() => {
+        loader.style.display = 'none'; // Hide loader
+        mainContent.classList.remove('hidden'); // Show main content
+      });
+    });
 
     noButton.addEventListener('click', function() {
       if (noClickCount === 0) {

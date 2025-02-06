@@ -38,7 +38,7 @@
       
       <!-- Music Toggle Button -->
       <button id="musicToggle" class="mb-4 px-4 py-2 bg-pink-500 text-white rounded-md">
-        Click Here
+        Play Music ▶️
       </button>
 
       <div class="flex gap-4 pt-[20px] items-center" id="responseButtons">
@@ -59,7 +59,7 @@
   </div>
 
   <!-- Background Music -->
-  <audio id="backgroundMusic" autoplay loop>
+  <audio id="backgroundMusic" loop>
     <source src="./music/valentine.mp3" type="audio/mp3">
     Your browser does not support the audio element.
   </audio>
@@ -85,14 +85,7 @@
 
     music.volume = 0.5; // Set initial volume
 
-    let firstClick = true; // Flag to track first click
-
     musicToggle.addEventListener("click", () => {
-      if (firstClick) {
-        musicToggle.textContent = "Pause Music 🎶"; // Change text on first click
-        firstClick = false; // Set flag to false after first click
-      }
-
       if (music.paused) {
         music.play();
         musicToggle.textContent = "Pause Music 🎶";
@@ -172,11 +165,6 @@
         imageDisplay.classList.add("hidden"); // Hide imageX
         loveNote.classList.remove("hidden"); // Show Love Note Image
       });
-    });
-
-    // Simulate a click on the music toggle button to start the music
-    window.addEventListener('load', () => {
-      musicToggle.click(); // Simulate a click to start the music
     });
 
   </script> 

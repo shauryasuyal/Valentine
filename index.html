@@ -126,6 +126,16 @@
       "This is too much for me to take...", "Alr pookie i cant type anymore , just press on yes, okau ? mwah <3"
     ];
 
+    // Preload images
+    const preloadImages = (imageArray) => {
+      imageArray.forEach(src => {
+        const img = new Image();
+        img.src = src;
+      });
+    };
+
+    preloadImages(imagePaths); // Preload the images
+
     noButton.addEventListener('click', function() {
       if (noClickCount < 21) {
         noClickCount++;

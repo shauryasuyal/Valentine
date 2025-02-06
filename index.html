@@ -38,7 +38,7 @@
       
       <!-- Music Toggle Button -->
       <button id="musicToggle" class="mb-4 px-4 py-2 bg-pink-500 text-white rounded-md">
-        Pause Music 🎶
+        Click Here
       </button>
 
       <div class="flex gap-4 pt-[20px] items-center" id="responseButtons">
@@ -85,7 +85,14 @@
 
     music.volume = 0.5; // Set initial volume
 
+    let firstClick = true; // Flag to track first click
+
     musicToggle.addEventListener("click", () => {
+      if (firstClick) {
+        musicToggle.textContent = "Pause Music 🎶"; // Change text on first click
+        firstClick = false; // Set flag to false after first click
+      }
+
       if (music.paused) {
         music.play();
         musicToggle.textContent = "Pause Music 🎶";

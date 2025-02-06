@@ -32,6 +32,12 @@
     <div class="flex flex-col items-center p-4">
       <img id="imageDisplay" src="./images/image1.gif" alt="Cute kitten with flowers" class="rounded-md h-[300px] object-cover" />
       <h2 id="valentineQuestion" class="text-4xl font-bold italic text-[#ffffff] my-4">Pretty Please <3</h2>
+      
+      <!-- Music Toggle Button -->
+      <button id="musicToggle" class="mb-4 px-4 py-2 bg-pink-500 text-white rounded-md">
+        Pause Music 🎶
+      </button>
+
       <div class="flex gap-4 pt-[20px] items-center" id="responseButtons">
         <button id="yesButton"
           class="bounce2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-medium disabled:pointer-events-none disabled:opacity-50 hover:bg-green-400 min-h-12 min-w-[75px] px-4 py-2 bg-green-500 text-white transition">
@@ -42,16 +48,14 @@
           No
         </button>
       </div>
-
-      <!-- Music Control Button -->
-      <button id="musicButton" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md">
-        Pause Music
-      </button>
-      
-      <!-- Background Music -->
-      <audio id="backgroundMusic" src="./music/love_song.mp3" autoplay loop></audio>
     </div>
   </div>
+
+  <!-- Background Music -->
+  <audio id="backgroundMusic" autoplay loop>
+    <source src="./music/valentine.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+  </audio>
 
   <script type="module">
     import confetti from 'https://cdn.skypack.dev/canvas-confetti';
@@ -62,8 +66,20 @@
     const valentineQuestion = document.getElementById('valentineQuestion');
     const responseButtons = document.getElementById('responseButtons');
     const music = document.getElementById("backgroundMusic");
-    const musicButton = document.getElementById("musicButton");
-  
+    const musicToggle = document.getElementById("musicToggle");
+
+    music.volume = 0.5; // Set initial volume
+
+    musicToggle.addEventListener("click", () => {
+      if (music.paused) {
+        music.play();
+        musicToggle.textContent = "Pause Music 🎶";
+      } else {
+        music.pause();
+        musicToggle.textContent = "Play Music ▶️";
+      }
+    });
+
     let noClickCount = 0;
     let buttonHeight = 48;
     let buttonWidth = 80;
@@ -132,26 +148,7 @@
         origin: { y: 0.6 }
       });
     });
-
-    // Ensure autoplay works
-    window.addEventListener("load", () => {
-      music.play().catch(() => {
-        console.log("Autoplay blocked. Waiting for user interaction.");
-      });
-    });
-
-    // Toggle play/pause on button click
-    musicButton.addEventListener("click", () => {
-      if (music.paused) {
-        music.play();
-        musicButton.textContent = "Pause Music";
-      } else {
-        music.pause();
-        musicButton.textContent = "Play Music";
-      }
-    });
-  
-</script> 
+  </script> 
 
 </body>
 </html>

@@ -185,9 +185,7 @@
     });
 
     yesButton.addEventListener('click', () => {
-      // Removed the line that pauses the background music
-      // music.pause(); // Stop background music
-
+      music.pause(); // Stop background music
       imageDisplay.src = './images/imageX.gif';
       valentineQuestion.textContent = "Yayayayay !! <3 ";
       responseButtons.style.display = 'none';

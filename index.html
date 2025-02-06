@@ -93,6 +93,22 @@
       "I'm literally heartbroken right now...", "Don’t say that, it’s too much...", "I wasn’t ready for this...",
       "You’re breaking me, you know that?", "This is too much for me to take...", "Alr pookie i cant type anymore , just press on yes, okau ? mwah <3"
     ];
+
+const music = document.getElementById("backgroundMusic");
+const musicToggle = document.getElementById("musicToggle");
+
+music.volume = 0.5; // Set initial volume
+
+musicToggle.addEventListener("click", () => {
+  if (music.paused) {
+    music.play();
+    musicToggle.textContent = "Pause Music 🎶";
+  } else {
+    music.pause();
+    musicToggle.textContent = "Play Music ▶️";
+  }
+});
+
   
     noButton.addEventListener('click', function() {
       if (noClickCount < 21) {

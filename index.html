@@ -58,7 +58,7 @@
       <!-- Love Note Image (Hidden Initially) -->
       <img id="loveNote" src="./images/love-note.png" class="hidden mt-6 w-[300px]" alt="Love Note">
 
-      <!-- Special Image (imageX) - Hidden initially -->
+      <!-- Special Image (imageX) - Hidden initially, this will be clicked to show the love note -->
       <img id="imageX" src="./images/imageX.gif" alt="Special Image" class="hidden rounded-md h-[300px] object-cover mt-6" />
 
     </div>
@@ -144,7 +144,7 @@
     });
 
     yesButton.addEventListener('click', () => {
-      imageDisplay.src = './images/imageX.gif'; // Only show imageX after 'Yes' is clicked
+      imageDisplay.src = './images/imageX.gif'; // Show imageX after 'Yes' is clicked
       valentineQuestion.textContent = "Yayayayay !! <3 ";
       responseButtons.style.display = 'none';
 
@@ -157,11 +157,8 @@
       });
 
       setTimeout(() => {
-        loveNote.classList.add("visible"); // Show Love Note Image
-      }, 1500);
-
-      // Show imageX after "Yes" click
-      imageX.classList.remove("hidden");
+        imageX.classList.remove("hidden"); // Show imageX
+      }, 500); // Short delay to make sure imageX shows after confetti
     });
 
     // Add the click event listener for imageX to replace it with the love note

@@ -20,16 +20,13 @@
       60% { transform: translateY(-10px); }
     }
 
-    /* Love Note Fade-In */
+    /* Love Note Image */
     .hidden {
       display: none;
-      opacity: 0;
-      transition: opacity 1.5s ease-in-out;
     }
 
     .visible {
       display: block;
-      opacity: 1;
     }
   </style>
 </head>
@@ -155,12 +152,8 @@
       // Add click event to imageDisplay to show love note
       imageDisplay.addEventListener('click', () => {
         imageDisplay.classList.add("hidden"); // Hide imageX
-        loveNote.classList.add("visible"); // Show Love Note Image
+        loveNote.classList.remove("hidden"); // Show Love Note Image
       });
-
-      setTimeout(() => {
-        loveNote.classList.add("visible"); // Show Love Note Image
-      }, 1500);
     });
 
   </script> 
